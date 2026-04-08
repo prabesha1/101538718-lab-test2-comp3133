@@ -1,0 +1,9 @@
+# Static Site on Render (recommended): no Node server, no ng serve, fits free tier.
+# Dashboard alternative: New → Static Site → Build Command: npm ci && npm run build
+# → Publish directory: dist/101538718-lab-test2-comp3133/browser
+services:
+  - type: web
+    name: 101538718-lab-test2-comp3133
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/101538718-lab-test2-comp3133/browser

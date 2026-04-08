@@ -19,7 +19,7 @@
       <mat-card class="card">
         <mat-card-header>
           <img mat-card-avatar
-               [src]="mission.links?.mission_patch_small || 'assets/placeholder.png'"
+               [src]="mission.links.mission_patch_small || 'assets/placeholder.png'"
                [alt]="mission.mission_name"
                class="patch-img"
                onerror="this.src='https://via.placeholder.com/50'">
@@ -30,7 +30,7 @@
           <p class="details-text">{{ mission.details || 'No details available.' }}</p>
           <div class="meta-row">
             <span><strong>Flight #:</strong> {{ mission.flight_number }}</span>
-            <span><strong>Rocket:</strong> {{ mission.rocket?.rocket_name }} ({{ mission.rocket?.rocket_type }})</span>
+            <span><strong>Rocket:</strong> {{ mission.rocket.rocket_name }} ({{ mission.rocket.rocket_type }})</span>
           </div>
           <div class="links-row" *ngIf="mission.links">
             <a *ngIf="mission.links.article_link" [href]="mission.links.article_link" target="_blank" mat-icon-button matTooltip="Article">

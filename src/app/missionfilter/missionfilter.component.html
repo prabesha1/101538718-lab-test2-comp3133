@@ -58,7 +58,7 @@
         class="mission-card"
         (click)="viewDetails(mission)">
         <img mat-card-image
-             [src]="mission.links?.mission_patch_small || 'https://via.placeholder.com/200'"
+             [src]="mission.links.mission_patch_small || 'https://via.placeholder.com/200'"
              [alt]="mission.mission_name"
              onerror="this.src='https://via.placeholder.com/200'"
              class="patch-img">
@@ -69,7 +69,7 @@
           <table class="info-table">
             <tr>
               <td><strong>Mission Ids</strong></td>
-              <td>{{ mission.mission_id?.join(', ') || '-' }}</td>
+              <td>{{ mission.mission_id.join(', ') || '-' }}</td>
             </tr>
             <tr>
               <td><strong>Launch Year</strong></td>
