@@ -1,0 +1,95 @@
+<div class="filter-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button routerLink="/" matTooltip="Back to Mission List">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>🚀 SpaceX Mission Filter</span>
+  </mat-toolbar>
+
+  <div class="layout">
+    <!-- Sidebar Filters -->
+    <mat-card class="sidebar">
+      <mat-card-header>
+        <mat-card-title>Launch Date</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="year-grid">
+          <button
+            *ngFor="let year of launchYears"
+            mat-flat-button
+            [color]="selectedYear === year ? 'primary' : ''"
+            [class.selected-year]="selectedYear === year"
+            class="year-btn"
+            (click)="filterByYear(year)">
+            {{ year }}
+          </button>
+        </div>
+        <button mat-stroked-button color="warn" class="clear-btn" (click)="clearFilter()" *ngIf="selectedYear">
+          Clear Filter
+        </button>
+
+        <mat-divider class="divider"></mat-divider>
+        <p class="filter-label"><strong>Successful Launch</strong></p>
+        <div class="bool-btns">
+          <button mat-flat-button color="primary" class="bool-btn">true</button>
+          <button mat-flat-button class="bool-btn">false</button>
+        </div>
+
+        <p class="filter-label"><strong>Successful Land</strong></p>
+        <div class="bool-btns">
+          <button mat-flat-button color="primary" class="bool-btn">true</button>
+          <button mat-flat-button class="bool-btn">false</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Mission Cards Grid -->
+    <div class="missions-grid">
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="error" class="error-msg">
+        <mat-icon color="warn">error</mat-icon> {{ error }}
+      </div>
+
+      <mat-card
+        *ngFor="let mission of missions"
+        class="mission-card"
+        (click)="viewDetails(mission)">
+        <img mat-card-image
+             [src]="mission.links?.mission_patch_small || 'https://via.placeholder.com/200'"
+             [alt]="mission.mission_name"
+             onerror="this.src='https://via.placeholder.com/200'"
+             class="patch-img">
+        <mat-card-header>
+          <mat-card-title class="card-title">{{ mission.mission_name }} #{{ mission.flight_number }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table class="info-table">
+            <tr>
+              <td><strong>Mission Ids</strong></td>
+              <td>{{ mission.mission_id?.join(', ') || '-' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Launch Year</strong></td>
+              <td>{{ mission.launch_year }}</td>
+            </tr>
+            <tr>
+              <td><strong>Successful Launch</strong></td>
+              <td>{{ mission.launch_success !== null ? mission.launch_success : 'No Data' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Successful Landing</strong></td>
+              <td>{{ mission.land_success !== null && mission.land_success !== undefined ? mission.land_success : 'No Data' }}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Developed By - Prabesh Shrestha</p>
+  </div>
+</div>

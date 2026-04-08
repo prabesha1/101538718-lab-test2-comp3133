@@ -1,0 +1,73 @@
+<div class="container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="goBack()" matTooltip="Back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>🚀 SpaceX Mission Details</span>
+  </mat-toolbar>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading mission details...</p>
+  </div>
+
+  <div *ngIf="error" class="error-msg">
+    <mat-icon color="warn">error</mat-icon> {{ error }}
+  </div>
+
+  <ng-container *ngIf="mission && !loading">
+    <mat-card class="detail-card">
+      <div class="detail-layout">
+        <!-- Mission Patch -->
+        <div class="patch-section">
+          <img
+            [src]="mission!.links?.mission_patch || mission!.links?.mission_patch_small || 'https://via.placeholder.com/200'"
+            [alt]="mission!.mission_name"
+            onerror="this.src='https://via.placeholder.com/200'"
+            class="patch-img">
+        </div>
+
+        <!-- Mission Info -->
+        <div class="info-section">
+          <h2 class="mission-title">Mission - {{ mission!.mission_name }}</h2>
+
+          <p><strong>Name:</strong> {{ mission!.mission_name }}</p>
+          <p><strong>Launch Year:</strong> {{ mission!.launch_year }}</p>
+          <p><strong>Flight Number:</strong> {{ mission!.flight_number }}</p>
+
+          <mat-divider class="divider"></mat-divider>
+
+          <h3 class="section-title">Rocket</h3>
+          <p><strong>Name:</strong> {{ mission!.rocket?.rocket_name }}</p>
+          <p><strong>Type:</strong> {{ mission!.rocket?.rocket_type }}</p>
+
+          <mat-divider class="divider"></mat-divider>
+
+          <h3 class="section-title">Launch Site</h3>
+          <p><strong>Name:</strong> {{ mission!.launch_site?.site_name_long || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <!-- Launch Details -->
+      <mat-card-content>
+        <mat-divider class="divider"></mat-divider>
+        <h3 class="section-title launch-details-title">Launch Details</h3>
+        <p class="details-text">{{ mission!.details || 'No details available for this mission.' }}</p>
+
+        <mat-divider class="divider"></mat-divider>
+        <h3 class="section-title">More Info on Launch Details</h3>
+        <div class="links-row">
+          <a *ngIf="mission!.links?.article_link" [href]="mission!.links.article_link" target="_blank" mat-icon-button matTooltip="Article">
+            <mat-icon>article</mat-icon>
+          </a>
+          <a *ngIf="mission!.links?.wikipedia" [href]="mission!.links.wikipedia" target="_blank" mat-icon-button matTooltip="Wikipedia">
+            <mat-icon>language</mat-icon>
+          </a>
+          <a *ngIf="mission!.links?.video_link" [href]="mission!.links.video_link" target="_blank" mat-icon-button matTooltip="Video">
+            <mat-icon>videocam</mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
